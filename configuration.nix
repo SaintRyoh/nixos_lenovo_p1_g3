@@ -125,6 +125,7 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+
     environment.systemPackages = with pkgs; [
 	home-manager
 
@@ -145,6 +146,12 @@ in
 	curl
 
 	unstable.brave
+	unstable.google-chrome
+	unstable.slack
+	jetbrains.webstorm
+	azuredatastudio
+	spotify
+	openfortivpn
 	git
 	#nvidia-offload
     ];
