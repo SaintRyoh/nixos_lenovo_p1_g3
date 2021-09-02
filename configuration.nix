@@ -55,6 +55,24 @@ in
   networking.useDHCP = false;
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
+  networking.hosts = {
+
+	"127.0.0.1" = [ "local.schooldata.net" ]
+
+	"10.1.42.204" = [ "web01" ]
+	"10.1.42.14" = [ "work1" ]
+	"10.1.43.21" = [ "work2" ]
+	"10.1.43.103" = [ "sqldev" ]
+	"10.1.43.36" = [ "sql21" ]
+	"10.1.43.91" = [ "sql22" ]
+	"10.1.43.15" = [ "sql23" ]
+	"10.1.43.96" = [ "sql24" ]
+	"10.1.43.73" = [ "sql25" ]
+	"10.1.43.24" = [ "sql26" ]
+	"10.1.43.54" = [ "hrmplus" ]
+
+  }
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
