@@ -18,6 +18,9 @@ in
   # Allow propreitary software
   nixpkgs.config.allowUnfree = true;
 
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 8d";
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -84,6 +87,10 @@ in
       useXkbConfig = true;
     };
 
+    fonts.fonts = with pkgs; [
+	nerdfonts
+    ];
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.dpi = 192;
@@ -137,6 +144,7 @@ in
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.matt = {
+      shell = pkgs.zsh;
       isNormalUser = true;
       extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     };
@@ -171,13 +179,25 @@ in
 	spotify
 	openfortivpn
 	git
+	unstable.avocode
+	qemu
+	# need something for s3 and rdp
 	#nvidia-offload
     ];
+
+  programs.zsh.enable = true;
+  #Enable Oh-my-zsh
+  programs.zsh.ohMyZsh = {
+	  enable = true;
+	  plugins = [ "git" "sudo" ];
+	  theme = "agnoster";
+  };
 
   environment.variables.XCURSOR_SIZE = "64";
   environment.variables.GDK_SCALE = "2";
   environment.variables.GDK_DPI_SCALE = "0.5";
   environment.variables._JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+  #environment.variables.XDG_CONFIG_HOME = "";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
