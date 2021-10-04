@@ -29,11 +29,11 @@ in
   "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/p1/3th-gen"
     ];
 
-  hardware.video.hidpi.enable = true;
+  #hardware.video.hidpi.enable = true;
   hardware.bluetooth.enable = true;
   hardware.nvidia.prime = {
-    #offload.enable = true;
-    sync.enable = true;
+    offload.enable = true;
+   # sync.enable = true;
   };
 
 
@@ -93,7 +93,7 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.dpi = 192;
+  #services.xserver.dpi = 192;
 
   # Enable the GNOME Desktop Environment.
     services.xserver = {
@@ -108,8 +108,8 @@ in
 
 	desktopManager.xfce = {
 		enable = true;
-	#	enableXfwm = false;
-	#	noDesktop = true;
+		enableXfwm = false;
+		noDesktop = true;
 	};
 	
 	windowManager.awesome.enable = true;
@@ -149,13 +149,16 @@ in
       extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     };
 
+      environment.variables = {
+        EDITOR= "nvim";
+        VISUAL= "nvim";
+      };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
     environment.systemPackages = with pkgs; [
 	home-manager
 
-	rofi
 	pywal
 
 	bc
@@ -170,7 +173,11 @@ in
 	tree
 	tmux
 	curl
+	feh
+	autorandr
+	direnv
 
+	unstable.discord
 	unstable.brave
 	unstable.google-chrome
 	unstable.slack
@@ -187,16 +194,21 @@ in
 
   programs.zsh.enable = true;
   #Enable Oh-my-zsh
-  programs.zsh.ohMyZsh = {
-	  enable = true;
-	  plugins = [ "git" "sudo" ];
-	  theme = "agnoster";
+  programs.zsh = {
+	  ohMyZsh = {
+		  enable = true;
+		  plugins = [ "git" "sudo" "git" ];
+		  theme = "agnoster";
+	  };
+	  autosuggestions.enable = true;
+	  syntaxHighlighting.enable = true;
   };
+  
 
-  environment.variables.XCURSOR_SIZE = "64";
-  environment.variables.GDK_SCALE = "2";
-  environment.variables.GDK_DPI_SCALE = "0.5";
-  environment.variables._JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+  #environment.variables.XCURSOR_SIZE = "64";
+  #environment.variables.GDK_SCALE = "2";
+  #environment.variables.GDK_DPI_SCALE = "0.5";
+  #environment.variables._JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
   #environment.variables.XDG_CONFIG_HOME = "";
 
   # Some programs need SUID wrappers, can be configured further or are
